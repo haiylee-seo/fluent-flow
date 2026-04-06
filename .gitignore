@@ -1,0 +1,17 @@
+# 노드 모듈 
+node_modules/
+dist/
+build/
+
+# 환경 변수 파일
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 맥북 전용 쓰레기 파일
+.DS_Store
+
+# 프리즈마 생성 파일 (npx prisma generate로 언제든 다시 만들 수 있음)
+/server/node_modules/@prisma/client
