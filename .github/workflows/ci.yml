@@ -3,11 +3,11 @@ name: monorepo CI
 on:
   push:
     branches: [main]
+    # 어떤 폴더든 수정되면 CI가 실행되지만, 실제 빌드는 변경된 것만 수행함
     paths:
       - "apps/**"
       - "packages/**"
       - "package-lock.json"
-      - ".github/workflows/ci.yml"
   pull_request:
     branches: [main]
     paths:
@@ -18,24 +18,25 @@ on:
 jobs:
   quality-check:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    # env:
+    #   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # 깃허브 액션 실행 엔진을 Node 24로 강제 지정
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # Turborepo의 캐싱 기능을 위해 전체 기록을 가져옴
 
       - name: Setup Node.js 22
         uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: "npm"
+          # 모노레포에서는 루트의 package-lock.json을 기준으로 캐싱
           cache-dependency-path: "package-lock.json"
 
       - name: Turbo Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
@@ -43,80 +44,21 @@ jobs:
             ${{ runner.os }}-turbo-
 
       - name: Install dependencies
+        # 루트에서 한 번만 설치하면 모든 워크스페이스(web, api, types) 설치 완료
         run: npm ci
 
       - name: Generate Prisma Client
+        # 백엔드 빌드 전에 Prisma Client 생성은 필수
         run: npx turbo run generate --filter=api
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DIRECT_URL: ${{ secrets.DIRECT_URL }}
 
       - name: Lint, Test, and Build
+        # 마법의 명령어: 변경된 부분만 알아서 필터링해서 병렬로 실행
+        # 만약 types만 바뀌면 둘 다 빌드, web만 바뀌면 web만 빌드
         run: npx turbo run lint test build
         env:
+          # 필요한 환경변수가 있다면 여기에 추가
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DIRECT_URL: ${{ secrets.DIRECT_URL }}
-# name: monorepo CI
-
-# on:
-#   push:
-#     branches: [main]
-#     # 어떤 폴더든 수정되면 CI가 실행되지만, 실제 빌드는 변경된 것만 수행함
-#     paths:
-#       - "apps/**"
-#       - "packages/**"
-#       - "package-lock.json"
-#   pull_request:
-#     branches: [main]
-#     paths:
-#       - "apps/**"
-#       - "packages/**"
-#       - "package-lock.json"
-
-# jobs:
-#   quality-check:
-#     runs-on: ubuntu-latest
-#     # env:
-#     #   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # 깃허브 액션 실행 엔진을 Node 24로 강제 지정
-
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v5
-#         with:
-#           fetch-depth: 0 # Turborepo의 캐싱 기능을 위해 전체 기록을 가져옴
-
-#       - name: Setup Node.js 22
-#         uses: actions/setup-node@v5
-#         with:
-#           node-version: 22
-#           cache: "npm"
-#           # 모노레포에서는 루트의 package-lock.json을 기준으로 캐싱
-#           cache-dependency-path: "package-lock.json"
-
-#       - name: Turbo Cache
-#         uses: actions/cache@v5
-#         with:
-#           path: .turbo
-#           key: ${{ runner.os }}-turbo-${{ github.sha }}
-#           restore-keys: |
-#             ${{ runner.os }}-turbo-
-
-#       - name: Install dependencies
-#         # 루트에서 한 번만 설치하면 모든 워크스페이스(web, api, types) 설치 완료
-#         run: npm ci
-
-#       - name: Generate Prisma Client
-#         # 백엔드 빌드 전에 Prisma Client 생성은 필수
-#         run: npx turbo run generate --filter=api
-#         env:
-#           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-#           DIRECT_URL: ${{ secrets.DIRECT_URL }}
-
-#       - name: Lint, Test, and Build
-#         # 마법의 명령어: 변경된 부분만 알아서 필터링해서 병렬로 실행
-#         # 만약 types만 바뀌면 둘 다 빌드, web만 바뀌면 web만 빌드
-#         run: npx turbo run lint test build
-#         env:
-#           # 필요한 환경변수가 있다면 여기에 추가
-#           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-#           DIRECT_URL: ${{ secrets.DIRECT_URL }}
