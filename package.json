@@ -1,0 +1,19 @@
+{
+    "name": "fluent-flow",
+    "private": true,
+    "packageManager": "npm@10.9.7",
+    "scripts": {
+      "dev": "turbo run dev",
+      "build": "turbo run build",
+      "test": "turbo run test",
+      "generate": "turbo run generate",
+      "lint": "turbo run lint"
+    },
+    "workspaces": [
+      "apps/*",
+      "packages/*"
+    ],
+    "devDependencies": {
+      "turbo": "latest"
+    }
+  }

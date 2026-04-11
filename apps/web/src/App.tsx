@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
-import { supabase } from './lib/supabaseClient';
-import Layout from './components/Layout';
-import Auth from './components/Auth';
-import DiaryEditor from './components/DiaryEditor';
-import './App.css';
+import { useState, useEffect } from "react";
+import { supabase } from "./lib/supabaseClient";
+import Layout from "./components/Layout";
+import Auth from "./components/Auth";
+import DiaryEditor from "./features/editor/DiaryEditor";
+import "./App.css";
+
+import type { Block } from "@notion/types";
 
 function App() {
   const [session, setSession] = useState<any>(null);
@@ -15,7 +17,9 @@ function App() {
     });
 
     // 2. 로그인 상태 변화 실시간 감지 (로그인/로그아웃 시 자동 실행)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
 
@@ -24,7 +28,7 @@ function App() {
 
   // 1. 로그인 전: 로그인 화면만 보여줌
   if (!session) {
-    return <Auth />; 
+    return <Auth />;
   }
 
   // 2. 로그인 후: 전체 레이아웃 안에 일기 에디터를 보여줌
@@ -46,7 +50,7 @@ function App() {
 //     // 로그인 안 됐을 땐 로그인 창 (아까 만든 거 유지하거나 간단히 처리)
 //     return (
 //       <div className="flex min-h-screen items-center justify-center bg-slate-100">
-//         <button 
+//         <button
 //           onClick={() => setIsLoggedIn(true)} // 임시로 로그인 처리
 //           className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold"
 //         >
@@ -62,11 +66,11 @@ function App() {
 //         <h1 className="text-4xl font-bold text-slate-900">오늘의 생각 💭</h1>
 //         <p className="text-slate-500 mt-2">2026년 4월 9일, 런던의 날씨는 맑음</p>
 //       </header>
-      
+
 //       {/* 1번 기능: 일기 쓰기 영역 (나중에 Tiptap 에디터 들어갈 자리) */}
 //       <section className="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-12">
-//         <textarea 
-//           placeholder="무슨 일이 있었나요?" 
+//         <textarea
+//           placeholder="무슨 일이 있었나요?"
 //           className="w-full bg-transparent border-none outline-none text-lg resize-none h-40"
 //         />
 //         <div className="flex justify-end">
