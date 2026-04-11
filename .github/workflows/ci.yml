@@ -18,8 +18,6 @@ on:
 jobs:
   quality-check:
     runs-on: ubuntu-latest
-    # env:
-    #   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # 깃허브 액션 실행 엔진을 Node 24로 강제 지정
 
     steps:
       - name: Checkout repository
