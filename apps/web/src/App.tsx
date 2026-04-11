@@ -1,6 +1,6 @@
 // import { useState, useEffect } from "react";
-import { useEffect } from "react";
-// import { supabase } from "./lib/supabaseClient";
+// import { useEffect } from "react";
+// import { supabase } from "@repo/supabase";
 // import Layout from "./components/Layout";
 // import Auth from "./components/Auth";
 // import DiaryEditor from "./features/editor/DiaryEditor";
@@ -11,19 +11,19 @@ import "./App.css";
 function App() {
   // const [session, setSession] = useState<any>(null);
 
-  useEffect(() => {
-    // 1. 현재 세션 가져오기(현재 세션 상태 확인)
-    // supabase.auth.getSession().then(({ data: { session } }) => {
-    //   setSession(session);
-    // });
-    // 2. 로그인 상태 변화 실시간 감지 (로그인/로그아웃 시 자동 실행)
-    // const {
-    //   data: { subscription },
-    // } = supabase.auth.onAuthStateChange((_event, session) => {
-    //   setSession(session);
-    // });
-    // return () => subscription.unsubscribe();
-  }, []);
+  // useEffect(() => {
+  // 1. 현재 세션 가져오기(현재 세션 상태 확인)
+  // supabase.auth.getSession().then(({ data: { session } }) => {
+  //   setSession(session);
+  // });
+  // 2. 로그인 상태 변화 실시간 감지 (로그인/로그아웃 시 자동 실행)
+  // const {
+  //   data: { subscription },
+  // } = supabase.auth.onAuthStateChange((_event, session) => {
+  //   setSession(session);
+  // });
+  // return () => subscription.unsubscribe();
+  // }, []);
 
   // 1. 로그인 전: 로그인 화면만 보여줌
   // if (!session) {
@@ -36,6 +36,7 @@ function App() {
   //   <DiaryEditor session={session} />
   // </Layout>
   // );
+  return <div>test</div>;
 }
 
 // import { useState } from 'react';

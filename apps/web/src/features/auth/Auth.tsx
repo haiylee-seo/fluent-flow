@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { useState } from "react";
+import { supabase } from "@repo/supabase";
+// import { supabase } from "../../lib/supabaseClient";
 
 function Auth() {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ function Auth() {
     if (error) {
       alert(error.message);
     } else {
-      alert('로그인 이메일을 보냈습니다! 편지함을 확인해주세요.');
+      alert("로그인 이메일을 보냈습니다! 편지함을 확인해주세요.");
     }
     setLoading(false);
   };
@@ -34,7 +35,7 @@ function Auth() {
         <p className="text-slate-500 text-center mb-8">
           오늘의 생각을 기록하기 위해 로그인하세요.
         </p>
-        
+
         <form onSubmit={handleLogin} className="space-y-4">
           <input
             type="email"
@@ -48,7 +49,7 @@ function Auth() {
             disabled={loading}
             className="w-full bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition disabled:bg-blue-300"
           >
-            {loading ? '전송 중...' : '매직 링크 발송하기'}
+            {loading ? "전송 중..." : "매직 링크 발송하기"}
           </button>
         </form>
       </div>
