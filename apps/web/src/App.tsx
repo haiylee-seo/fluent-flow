@@ -1,42 +1,41 @@
-import { useState, useEffect } from "react";
-import { supabase } from "./lib/supabaseClient";
-import Layout from "./components/Layout";
-import Auth from "./components/Auth";
-import DiaryEditor from "./features/editor/DiaryEditor";
+// import { useState, useEffect } from "react";
+import { useEffect } from "react";
+// import { supabase } from "./lib/supabaseClient";
+// import Layout from "./components/Layout";
+// import Auth from "./components/Auth";
+// import DiaryEditor from "./features/editor/DiaryEditor";
 import "./App.css";
 
-import type { Block } from "@notion/types";
+// import type { Block } from "@notion/types";
 
 function App() {
-  const [session, setSession] = useState<any>(null);
+  // const [session, setSession] = useState<any>(null);
 
   useEffect(() => {
     // 1. 현재 세션 가져오기(현재 세션 상태 확인)
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
+    // supabase.auth.getSession().then(({ data: { session } }) => {
+    //   setSession(session);
+    // });
     // 2. 로그인 상태 변화 실시간 감지 (로그인/로그아웃 시 자동 실행)
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
+    // const {
+    //   data: { subscription },
+    // } = supabase.auth.onAuthStateChange((_event, session) => {
+    //   setSession(session);
+    // });
+    // return () => subscription.unsubscribe();
   }, []);
 
   // 1. 로그인 전: 로그인 화면만 보여줌
-  if (!session) {
-    return <Auth />;
-  }
+  // if (!session) {
+  //   return <Auth />;
+  // }
 
   // 2. 로그인 후: 전체 레이아웃 안에 일기 에디터를 보여줌
-  return (
-    <Layout user={session.user}>
-      <DiaryEditor session={session} />
-    </Layout>
-  );
+  // return (
+  // <Layout user={session.user}>
+  //   <DiaryEditor session={session} />
+  // </Layout>
+  // );
 }
 
 // import { useState } from 'react';
