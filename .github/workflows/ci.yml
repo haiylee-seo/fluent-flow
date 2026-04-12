@@ -49,7 +49,7 @@ jobs:
 
       - name: Generate Prisma Client
         # 백엔드 빌드 전에 Prisma Client 생성은 필수
-        run: npx turbo run generate --filter=api
+        run: npx turbo run db:generate --filter=api
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DIRECT_URL: ${{ secrets.DIRECT_URL }}
