@@ -4,6 +4,7 @@
 // import Layout from "./components/Layout";
 // import Auth from "./components/Auth";
 // import DiaryEditor from "./features/editor/DiaryEditor";
+import DashboardPage from "./pages/Dashboard";
 import "./App.css";
 
 // import type { Block } from "@notion/types";
@@ -36,7 +37,11 @@ function App() {
   //   <DiaryEditor session={session} />
   // </Layout>
   // );
-  return <div>test</div>;
+  return (
+    <>
+      <DashboardPage></DashboardPage>
+    </>
+  );
 }
 
 // import { useState } from 'react';
