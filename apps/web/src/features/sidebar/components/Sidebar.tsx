@@ -1,10 +1,10 @@
 // apps/web/src/features/sidebar/components/Sidebar.tsx
-import { Button } from "@/components/Button"; // 공용 부품을 가져옴
+// import { Button } from "@/components/Button"; // 공용 부품을 가져옴
 
 export function Sidebar() {
-  const addNewPage = () => {
-    /* 페이지 추가 로직 */
-  };
+  // const addNewPage = () => {
+  //   /* 페이지 추가 로직 */
+  // };
 
   return (
     <aside className="w-64 border-r bg-[#f7f7f5] flex flex-col">
@@ -14,7 +14,7 @@ export function Sidebar() {
           Getting Started
         </div>
         {/* 공용 부품인 Button을 가져와서 '페이지 추가'라는 기능을 부여함 */}
-        <Button label="New Page" onClick={addNewPage} />
+        {/* <Button label="New Page" onClick={addNewPage} /> */}
       </nav>
     </aside>
   );
