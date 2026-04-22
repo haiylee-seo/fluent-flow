@@ -1,11 +1,17 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
+// import type { RefObject } from "react";
+import { useEffect, type RefObject } from "react";
 
-export function useOnClickOutside(ref, handler) {
+export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
+  ref: RefObject<T>,
+  handler: (event: MouseEvent | TouchEvent) => void,
+) {
   useEffect(() => {
-    const listener = (event) => {
+    const listener = (event: MouseEvent | TouchEvent) => {
       // 1. ref가 아직 연결되지 않았거나
       // 2. 클릭한 요소(event.target)가 ref 영역의 내부라면 아무것도 하지 않음
-      if (!ref.current || ref.current.contains(event.target)) {
+      // 3. event.target 뒤에 'as Node'를 붙여서 타입스크립트를 안심시킴
+      if (!ref.current || ref.current.contains(event.target as Node)) {
         return;
       }
 

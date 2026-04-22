@@ -18,7 +18,7 @@ export function Sidebar() {
 
   return (
     <aside
-      className={`flex flex-col h-full bg-[#fbfbfa] group/sidebar overflow-y-auto transition-all ease-in-out duration-300 ${!isCollapsed && "w-60"}}`}
+      className={`flex flex-col h-full bg-[#fbfbfa] group/sidebar overflow-y-auto transition-all ease-in-out duration-300 ${!isCollapsed ? "w-60" : ""}}`}
     >
       <div
         className={`flex items-center ${isCollapsed ? "justify-center" : "justify-between"} gap-x-2 px-3 pt-5 pb-2`}
@@ -46,22 +46,22 @@ export function Sidebar() {
       <nav className="mt-3 px-3">
         <SidebarItem
           icon={<Search size={18} />}
-          label={!isCollapsed && "검색"}
+          label={!isCollapsed ? "검색" : ""}
           to="/temp"
         />
         <SidebarItem
           icon={<Clock size={18} />}
-          label={!isCollapsed && "업데이트"}
+          label={!isCollapsed ? "업데이트" : ""}
           to="/temp"
         />
         <SidebarItem
           icon={<Settings size={18} />}
-          label={!isCollapsed && "설정"}
+          label={!isCollapsed ? "설정" : ""}
           to="/temp"
         />
         <SidebarItem
           icon={<PlusCircle size={18} />}
-          label={!isCollapsed && "새 페이지"}
+          label={!isCollapsed ? "새 페이지" : ""}
         />
       </nav>
     </aside>

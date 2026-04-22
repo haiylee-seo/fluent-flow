@@ -1,7 +1,12 @@
 // import { useState } from "react";
 import { MoreHorizontal } from "lucide-react";
 
-export function PageNavbar({ icon, title }) {
+interface PageNavbarProps {
+  icon: string;
+  title: string;
+}
+
+export function PageNavbar({ icon, title }: PageNavbarProps) {
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between bg-white w-full px-3 py-2">
       <div className="flex items-center gap-x-1 text-sm font-medium">

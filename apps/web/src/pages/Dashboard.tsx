@@ -3,6 +3,7 @@
 // import { Sidebar, SidebarItem } from "./components"; // index 파일명 생략 가능
 import { useState, useEffect } from "react";
 import axios from "axios";
+import type { JsonValue } from "@fluent-flow/types";
 import { Sidebar } from "@/features/sidebar";
 import { PageHeader, PageNavbar } from "@/features/editor";
 import { BlockNoteEditor } from "@/features/editor";
@@ -21,10 +22,14 @@ export default function DashboardPage() {
   const [postId, setPostId] = useState<string | null>(null);
 
   // 1. 현재 화면에 보여지는(실시간으로 타이핑되는) 상태
-  const [docData, setDocData] = useState({
+  const [docData, setDocData] = useState<{
+    icon: string;
+    title: string;
+    content: JsonValue;
+  }>({
     icon: "📄", // 기본 이모지
     title: "",
-    content: "", // 나중에 본문 에디터가 들어갈 자리
+    content: [], // 나중에 본문 에디터가 들어갈 자리
   });
 
   // 2. 디바운스가 적용된 상태 (사용자가 타이핑을 멈추고 1초(1000ms) 뒤에 업데이트됨)
@@ -85,10 +90,10 @@ export default function DashboardPage() {
           <PageHeader
             icon={docData.icon}
             title={docData.title}
-            onIconChange={(newIcon) =>
+            onIconChange={(newIcon: string) =>
               setDocData({ ...docData, icon: newIcon })
             }
-            onTitleChange={(newTitle) =>
+            onTitleChange={(newTitle: string) =>
               setDocData({ ...docData, title: newTitle })
             }
           />

@@ -2,10 +2,24 @@
 import { useState, useRef } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import EmojiPicker from "emoji-picker-react";
+import type { EmojiClickData } from "emoji-picker-react"; // 이모지 라이브러리에서 전용 타입 임포트
 // import { useOnClickOutside } from "@/features/navigation";
 import { useOnClickOutside } from "@/hooks";
 
-export function PageHeader({ icon, title, onIconChange, onTitleChange }) {
+// 컴포넌트 상단에 타입 정의 추가
+interface PageHeaderProps {
+  icon: string;
+  title: string;
+  onIconChange: (icon: string) => void;
+  onTitleChange: (title: string) => void;
+}
+
+export function PageHeader({
+  icon,
+  title,
+  onIconChange,
+  onTitleChange,
+}: PageHeaderProps) {
   // const textareaRef = useRef(null);
 
   // const handleResizeHeight = useCallback(() => {
@@ -26,7 +40,7 @@ export function PageHeader({ icon, title, onIconChange, onTitleChange }) {
   // 2. 커스텀 훅 적용: pickerRef 바깥을 클릭하면 상태를 false로 변경하여 창 닫기
   useOnClickOutside(pickerRef, () => setShowPicker(false));
 
-  const handleEmojiClick = (emojiObject) => {
+  const handleEmojiClick = (emojiObject: EmojiClickData) => {
     onIconChange(emojiObject.emoji); // 상위 컴포넌트의 상태 업데이트
     setShowPicker(false); // 선택 후 피커 닫기
   };

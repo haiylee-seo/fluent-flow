@@ -1,17 +1,23 @@
 // apps/web/src/features/editor/components/Editor.tsx
+import type { PartialBlock } from "@blocknote/core";
+// 상단에 모노레포 글로벌 타입 임포트
+import type { JsonValue } from "@fluent-flow/types";
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/shadcn";
 import "@blocknote/shadcn/style.css";
 
+// 컴포넌트 상단에 타입 정의 추가 (기존 string -> JsonValue로 변경)
 interface EditorProps {
-  initialContent?: string;
-  onChange: (content: string) => void;
+  initialContent?: JsonValue;
+  onChange: (content: JsonValue) => void;
 }
 
 // 에디터 저장 로직 + 에디터 UI
 export function BlockNoteEditor({ initialContent, onChange }: EditorProps) {
   const editor = useCreateBlockNote({
-    initialContent: initialContent ? JSON.parse(initialContent) : undefined,
+    initialContent: initialContent
+      ? (initialContent as PartialBlock[])
+      : undefined,
   });
 
   return (
