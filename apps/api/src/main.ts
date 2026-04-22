@@ -7,7 +7,7 @@ async function bootstrap() {
 
   // CORS 설정 (프론트엔드 버셀 주소 허용)
   app.enableCors({
-    origin: 'https://fluent-flow-lime.vercel.app/', // 프론트 주소 넣기
+    origin: ['https://fluent-flow-lime.vercel.app', 'http://localhost:5173'], // 프론트 주소 넣기
     credentials: true,
   });
 
