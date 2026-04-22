@@ -35,7 +35,7 @@ export function PageHeader({
   const [showPicker, setShowPicker] = useState(false);
 
   // 1. 이모지 피커 영역을 가리킬 DOM 참조(Ref) 생성
-  const pickerRef = useRef(null);
+  const pickerRef = useRef<HTMLDivElement>(null);
 
   // 2. 커스텀 훅 적용: pickerRef 바깥을 클릭하면 상태를 false로 변경하여 창 닫기
   useOnClickOutside(pickerRef, () => setShowPicker(false));
